@@ -28,4 +28,6 @@ async def picture(ctx):
 
 client.run("OTA2MDY3NjA2MzEyNzE4Mzk2.YYTPNw.dbfJw_cBb7Wggllu8EQddjxQiy8")
 
-
+@client.command()
+async def ping(ctx):
+    await ctx.send(f'延遲時間{round(1000*(client.latency))}ms')
