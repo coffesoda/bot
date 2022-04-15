@@ -1,0 +1,47 @@
+from msilib.schema import Component
+from random import random
+from tabnanny import check
+import discord
+from discord.ext import commands
+from regex import B
+client=commands.Bot(command_prefix='?')
+import os
+from discord_components import DiscordComponents, ComponentsBot, Button
+
+@client.event
+async def on_ready():
+    print ("bot is on line")
+    channel=client.get_channel(int(906074499441655822))
+    await channel.send('bot is online')
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cog.{filename[:-3]}')
+
+@client.command()
+async def load(ctx,exten):
+    client.load_extension(f'cog.{exten}')
+    await ctx.channel.send(f'\"{exten}\" has loaded')
+@client.command()
+async def unload(ctx,exten):
+    client.unload_extension(f'cog.{exten}')
+    await ctx.channel.send(f'\"{exten}\" has unloaded')
+@client.command()
+async def reload(ctx,exten):
+    client.reload_extension(f'cog.{exten}')
+    await ctx.channel.send(f'\'{exten}\' has reloaded')
+@client.command()
+async def b(ctx):
+    
+    await ctx.send(
+        f"初始牌{2} 發牌?",
+        components=[[ Button(label='發',style='3',custom_id='card_add'),Button(label='不發',style='4',custom_id='stop')            
+        ]]
+    )
+
+   
+    interaction=await client.wait_for("button_click",check=lambda i: i.custom_id =="custom_id")
+
+
+
+client.run("OTA2MDY3NjA2MzEyNzE4Mzk2.YYTPNw.EH3wmZLjGdbhJGn-r9TNqeVkwV0")
